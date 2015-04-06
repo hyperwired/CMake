@@ -1,0 +1,38 @@
+.Compiler	= 'C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\cl.exe'
+.Librarian	= 'C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\lib.exe'
+.Linker		= 'C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe'
+
+.VCIncludesDirs_x86_compiler_options = '/I"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\include"'
+.VCLibraryDirs_x86_linker_options = '/LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\lib" /LIBPATH:"C:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\atlmfc\lib" /LIBPATH:"C:\Program Files (x86)\Windows Kits\8.1\Lib\winv6.3\um\x86"'
+
+;-------------------------------------------------------------------------
+
+Library( 'LibHello' )
+{
+	;.CompilerInputPath	= 'src/'
+	;.CompilerInputPattern = '*.cpp'
+
+	.CompilerInputFiles = {
+		'src/hello.cpp'
+	}
+	.CompilerOutputPath	= 'int/'
+	.LibrarianOutput	= 'lib/hello.lib'
+
+
+	.CompilerOptions	= '%1 /Fo%2 /c /Z7 $VCIncludesDirs_x86_compiler_options$'
+	.LibrarianOptions	= '/NODEFAULTLIB /OUT:%2 %1 /NOLOGO'
+}
+
+Executable( 'hello' )
+{
+	.Libraries		= "LibHello"
+	.LinkerOutput	= 'bin/hello.exe'
+	.LinkerLinkObjects	= true
+
+	.LinkerOptions	= '/OUT:%2 %1 /NOLOGO /SUBSYSTEM:CONSOLE /DEBUG /MACHINE:X86 /SAFESEH /INCREMENTAL $VCLibraryDirs_x86_linker_options$'
+}
+
+Alias( 'all' )
+{
+	.Targets = { 'hello' }
+}

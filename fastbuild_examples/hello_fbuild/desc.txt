@@ -1,0 +1,1 @@
+simple sanity check case. single file, build a working executable.
