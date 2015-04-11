@@ -32,9 +32,12 @@ class cmLocalFastbuildGenerator
 {
 public:
   
-  cmLocalFastbuildGenerator();
-  virtual ~cmLocalFastbuildGenerator();
+	cmLocalFastbuildGenerator();
+	virtual ~cmLocalFastbuildGenerator();
 
+	virtual void Generate();
+
+	void ExpandRuleVariables(std::string& s, const RuleVariables& replaceValues);
 };
 
 #endif
